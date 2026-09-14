@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "desktop": {
+    "repository": "https://github.com/openminion/desktop",
+    "commit": "6ab6893580a2f5381e83d9c2fed5ddd5216a0631",
+    "package_name": "@openminion/desktop",
+    "product_name": "OpenMinion",
+    "version": "0.0.0",
+    "package_json_sha256": "92e631622d3213413c7e175355ce2e66b8c5a68af111dcab679cb0edbca50344",
+    "package_lock_sha256": "6d593bfba0ffa3bda1afae114980a6ee48db55dc62dde62e3a486e66ae7d284c",
+    "forge_config_sha256": "290f9c6856f944617670dc318179730d084aef24eee74881a5f5405e975a8f21"
+  },
+  "toolchain": {
+    "node": "24",
+    "npm": "11.12.1",
+    "electron": "43.1.1",
+    "electron_forge": "7.11.2"
+  },
+  "targets": {
+    "macos-arm64": {
+      "platform": "darwin",
+      "architecture": "arm64",
+      "minimum_os": "14",
+      "artifact_extensions": [
+        ".dmg",
+        ".zip"
+      ],
+      "status": "unsigned-prototype"
+    }
+  }
+}
+

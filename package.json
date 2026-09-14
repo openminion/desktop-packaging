@@ -1,0 +1,17 @@
+{
+  "name": "@openminion/desktop-packaging",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Release assembly for OpenMinion Desktop.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25",
+    "npm": ">=11 <12"
+  },
+  "scripts": {
+    "syntax": "node --check packaging/build.mjs && node --check tests/build.test.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "npm run syntax && npm test"
+  }
+}

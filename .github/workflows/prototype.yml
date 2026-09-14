@@ -1,0 +1,42 @@
+name: Prototype
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  macos:
+    runs-on: macos-14
+    steps:
+      - name: Check out packaging repository
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - name: Require Desktop source access
+        env:
+          DESKTOP_SOURCE_TOKEN: ${{ secrets.DESKTOP_SOURCE_TOKEN }}
+        run: test -n "$DESKTOP_SOURCE_TOKEN"
+      - name: Check out exact Desktop source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          repository: openminion/desktop
+          ref: 6ab6893580a2f5381e83d9c2fed5ddd5216a0631
+          path: desktop-source
+          token: ${{ secrets.DESKTOP_SOURCE_TOKEN }}
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: desktop-source/package-lock.json
+      - name: Install exact npm
+        run: npm install --global npm@11.12.1
+      - name: Build unsigned native prototype
+        run: node packaging/build.mjs build --source desktop-source --target macos-arm64
+      - name: Upload temporary artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: openminion-desktop-macos-arm64
+          path: dist/openminion-desktop-*
+          retention-days: 3
+
