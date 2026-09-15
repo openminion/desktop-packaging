@@ -16,6 +16,11 @@
     "electron": "43.1.1",
     "electron_forge": "7.11.2"
   },
+  "packaging": {
+    "dmg_background_color": "#171A1F",
+    "dmg_background_sha256": "e77fa7b0abe08c62faf7d38f68cb5c90f0536c4a79abea5583e46348b767f324",
+    "dmg_overlay_sha256": "b19158ba8e415cfb3217d165ce7611459fb75bae23e4635106a1b22c01daf20e"
+  },
   "targets": {
     "macos-arm64": {
       "platform": "darwin",
@@ -29,4 +34,3 @@
     }
   }
 }
-

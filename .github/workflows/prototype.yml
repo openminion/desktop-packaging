@@ -31,6 +31,8 @@ jobs:
           cache-dependency-path: desktop-source/package-lock.json
       - name: Install exact npm
         run: npm install --global npm@11.12.1
+      - name: Check packaging repository
+        run: npm run check
       - name: Build unsigned native prototype
         run: node packaging/build.mjs build --source desktop-source --target macos-arm64
       - name: Upload temporary artifacts
@@ -39,4 +41,3 @@ jobs:
           name: openminion-desktop-macos-arm64
           path: dist/openminion-desktop-*
           retention-days: 3
-

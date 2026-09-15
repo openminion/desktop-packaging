@@ -19,8 +19,9 @@ The first target is unsigned `macos-arm64`. The build pins:
 
 The packaging command validates those inputs, clones the Desktop checkout into
 a disposable directory, runs Desktop's existing `ci-check` and `make` commands,
-and stages the resulting DMG and ZIP with portable metadata and SHA-256 files.
-The source checkout is never edited.
+applies a packaging-owned dark DMG background in that disposable clone, and
+stages the resulting DMG and ZIP with portable metadata and SHA-256 files. The
+source checkout is never edited.
 
 ## Local use
 
@@ -43,6 +44,10 @@ Generated files are written under `dist/` and are not committed.
 ## Repository boundary
 
 - `packaging/inputs.json` pins the accepted Desktop and toolchain inputs.
+- `packaging/dmg-background.svg` is the editable source for the installer art.
+- `packaging/dmg-background.png` is the pinned 658 x 498 build asset.
+- `packaging/dmg-dark-background.patch` points the disposable Desktop clone at
+  that packaging-owned asset.
 - `packaging/build.mjs` is the only local and CI assembly entry point.
 - `.github/workflows/prototype.yml` runs the same entry point on a native host.
 - `tests/` protects source isolation, identity, and artifact verification.
@@ -65,4 +70,3 @@ does not share build code with either owner.
 
 Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) and
 [NOTICE](NOTICE).
-

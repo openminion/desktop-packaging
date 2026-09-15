@@ -1,0 +1,15 @@
+diff --git a/forge.config.ts b/forge.config.ts
+index ec9f8d0..c81eac6 100644
+--- a/forge.config.ts
++++ b/forge.config.ts
+@@ -19,7 +19,9 @@ const config: ForgeConfig = {
+     {
+       name: "@electron-forge/maker-dmg",
+       platforms: ["darwin"],
+-      config: {},
++      config: {
++        background: ".openminion-packaging/dmg-background.png",
++      },
+     },
+   ],
+ };

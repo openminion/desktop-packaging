@@ -83,7 +83,19 @@ test("input manifest pins one honest native prototype target", () => {
   assert.equal(inputs.schema_version, 1);
   assert.deepEqual(Object.keys(inputs.targets), ["macos-arm64"]);
   assert.equal(inputs.targets["macos-arm64"].status, "unsigned-prototype");
+  assert.equal(inputs.packaging.dmg_background_color, "#171A1F");
   assert.match(inputs.desktop.commit, /^[0-9a-f]{40}$/);
+});
+
+test("DMG background asset and overlay are pinned", () => {
+  const overlay = new URL("../packaging/dmg-dark-background.patch", import.meta.url);
+  assert.equal(sha256(overlay), inputs.packaging.dmg_overlay_sha256);
+  const background = new URL("../packaging/dmg-background.png", import.meta.url);
+  assert.equal(sha256(background), inputs.packaging.dmg_background_sha256);
+  assert.match(
+    readFileSync(overlay, "utf8"),
+    /background: "\.openminion-packaging\/dmg-background\.png"/,
+  );
 });
 
 test("source verification accepts the exact clean commit", () => {
@@ -129,7 +141,10 @@ test("artifact record is portable and detects mutation", () => {
   try {
     const artifact = join(directory, "OpenMinion.dmg");
     writeFileSync(artifact, "artifact");
-    writeArtifactRecord(artifact, { desktop: inputs.desktop });
+    writeArtifactRecord(artifact, {
+      desktop: inputs.desktop,
+      packaging: inputs.packaging,
+    });
     assert.equal(verifyArtifact(artifact).artifact.filename, "OpenMinion.dmg");
     assert.equal(
       readFileSync(`${artifact}.sha256`, "utf8"),
@@ -141,4 +156,3 @@ test("artifact record is portable and detects mutation", () => {
     rmSync(directory, { recursive: true, force: true });
   }
 });
-

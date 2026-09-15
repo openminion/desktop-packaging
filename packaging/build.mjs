@@ -18,6 +18,16 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const repositoryRoot = fileURLToPath(new URL("..", import.meta.url));
+const dmgOverlayPath = join(
+  repositoryRoot,
+  "packaging",
+  "dmg-dark-background.patch",
+);
+const dmgBackgroundPath = join(
+  repositoryRoot,
+  "packaging",
+  "dmg-background.png",
+);
 export const inputs = JSON.parse(
   readFileSync(join(repositoryRoot, "packaging", "inputs.json"), "utf8"),
 );
@@ -102,6 +112,19 @@ export function verifyToolchain(manifest = inputs) {
   }
 }
 
+export function verifyDmgOverlay(source, manifest = inputs) {
+  if (sha256(dmgOverlayPath) !== manifest.packaging.dmg_overlay_sha256) {
+    throw new Error("DMG overlay SHA-256 mismatch");
+  }
+  if (sha256(dmgBackgroundPath) !== manifest.packaging.dmg_background_sha256) {
+    throw new Error("DMG background SHA-256 mismatch");
+  }
+  run("git", ["apply", "--check", dmgOverlayPath], {
+    cwd: resolve(source),
+    capture: true,
+  });
+}
+
 export function verifyNativeTarget(targetName, manifest = inputs) {
   const target = manifest.targets[targetName];
   if (!target) {
@@ -163,6 +186,18 @@ export function verifyArtifact(artifact, manifest = inputs) {
   if (metadata.desktop?.commit !== manifest.desktop.commit) {
     throw new Error("artifact Desktop source mismatch");
   }
+  if (
+    metadata.packaging?.dmg_overlay_sha256 !==
+    manifest.packaging.dmg_overlay_sha256
+  ) {
+    throw new Error("artifact packaging overlay mismatch");
+  }
+  if (
+    metadata.packaging?.dmg_background_sha256 !==
+    manifest.packaging.dmg_background_sha256
+  ) {
+    throw new Error("artifact DMG background mismatch");
+  }
   if (readFileSync(checksumPath, "utf8") !== `${digest}  ${basename(artifact)}\n`) {
     throw new Error("artifact checksum mismatch");
   }
@@ -173,6 +208,7 @@ export function build(source, targetName, manifest = inputs) {
   verifyToolchain(manifest);
   const target = verifyNativeTarget(targetName, manifest);
   verifySource(source, manifest);
+  verifyDmgOverlay(source, manifest);
 
   const workRoot = mkdtempSync(join(tmpdir(), "openminion-desktop-packaging-"));
   const buildRoot = join(workRoot, "desktop");
@@ -184,6 +220,10 @@ export function build(source, targetName, manifest = inputs) {
       cwd: buildRoot,
     });
     verifySource(buildRoot, manifest);
+    run("git", ["apply", dmgOverlayPath], { cwd: buildRoot });
+    const packagingAssets = join(buildRoot, ".openminion-packaging");
+    mkdirSync(packagingAssets);
+    copyFileSync(dmgBackgroundPath, join(packagingAssets, "dmg-background.png"));
     run("npm", ["ci"], { cwd: buildRoot });
     run("npm", ["run", "ci-check"], { cwd: buildRoot });
     run("npm", ["run", "make"], { cwd: buildRoot });
@@ -207,6 +247,7 @@ export function build(source, targetName, manifest = inputs) {
       copyFileSync(sourceArtifact, destination);
       writeArtifactRecord(destination, {
         desktop: manifest.desktop,
+        packaging: manifest.packaging,
         target: { name: targetName, ...target },
         toolchain: manifest.toolchain,
       });
@@ -232,6 +273,7 @@ function main(args) {
   if (command === "check") {
     verifyToolchain();
     const result = verifySource(option(args, "--source"));
+    verifyDmgOverlay(result.root);
     console.log(`verified Desktop ${result.head}`);
     return;
   }

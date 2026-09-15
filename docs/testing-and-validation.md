@@ -21,8 +21,9 @@ does not build or certify an application.
 node packaging/build.mjs build --source ../desktop --target macos-arm64
 ```
 
-The command uses a disposable clone, runs Desktop's complete `ci-check`, runs
-its existing unsigned `make`, and verifies staged DMG and ZIP files. This is
+The command uses a disposable clone, applies the pinned dark-background overlay,
+runs Desktop's complete `ci-check`, runs its existing unsigned `make`, and
+verifies staged DMG and ZIP files. This is
 native unsigned packaging evidence only. It is not signing, notarization,
 installation, update, rollback, or provider-backed application evidence.
 
