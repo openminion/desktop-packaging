@@ -42,10 +42,13 @@ export function run(command, args, options = {}) {
     cwd: options.cwd,
     encoding: "utf8",
     env: options.env ?? process.env,
+    shell: process.platform === "win32" && command.endsWith(".cmd"),
     stdio: options.capture ? "pipe" : "inherit",
   });
   if (result.status !== 0) {
-    const detail = options.capture ? (result.stderr || result.stdout).trim() : "";
+    const detail = options.capture
+      ? (result.stderr || result.stdout || result.error?.message || "").trim()
+      : "";
     throw new Error(
       `${command} ${args.join(" ")} failed${detail ? `: ${detail}` : ""}`,
     );
