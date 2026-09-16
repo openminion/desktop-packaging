@@ -10,18 +10,19 @@ No artifact produced here is currently a supported public download.
 
 ## Current prototype
 
-The first target is unsigned `macos-arm64`. The build pins:
+The native targets are unsigned `macos-arm64`, `macos-x64`, `windows-x64`,
+and `linux-x64`. Every build pins:
 
-- Desktop commit `6ab6893580a2f5381e83d9c2fed5ddd5216a0631`
+- Desktop commit `bd715e89891da7bdab0f9d827ec306f20733f0ff`
 - Node.js 24 and npm 11.12.1
 - Electron 43.1.1 and Electron Forge 7.11.2 from Desktop's lockfile
 - the exact Desktop `package.json`, `package-lock.json`, and `forge.config.ts`
 
 The packaging command validates those inputs, clones the Desktop checkout into
-a disposable directory, runs Desktop's existing `ci-check` and `make` commands,
-applies a packaging-owned dark DMG background in that disposable clone, and
-stages the resulting DMG and ZIP with portable metadata and SHA-256 files. The
-source checkout is never edited.
+a disposable directory, and runs Desktop's existing `ci-check` and `make`
+commands on the native target. macOS builds apply the packaging-owned dark DMG
+background in that disposable clone. Every resulting artifact is staged with
+portable metadata and a SHA-256 file. The source checkout is never edited.
 
 ## Local use
 
@@ -32,6 +33,9 @@ Use Node.js 24 and npm 11.12.1, then place this repository beside a clean
 node packaging/build.mjs check --source ../desktop
 node packaging/build.mjs build --source ../desktop --target macos-arm64
 ```
+
+Choose the target matching the native host. Cross-compilation is intentionally
+rejected.
 
 Run the packaging repository checks with:
 

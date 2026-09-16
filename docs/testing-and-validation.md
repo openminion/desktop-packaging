@@ -15,17 +15,21 @@ node packaging/build.mjs check --source ../desktop
 This proves the source commit is clean and matches the pinned release files. It
 does not build or certify an application.
 
-## Native prototype
+## Native prototypes
 
 ```bash
 node packaging/build.mjs build --source ../desktop --target macos-arm64
 ```
 
-The command uses a disposable clone, applies the pinned dark-background overlay,
-runs Desktop's complete `ci-check`, runs its existing unsigned `make`, and
-verifies staged DMG and ZIP files. This is
-native unsigned packaging evidence only. It is not signing, notarization,
-installation, update, rollback, or provider-backed application evidence.
+Use `macos-x64`, `windows-x64`, or `linux-x64` only on the corresponding native
+host. The build rejects a target that does not match the host platform and
+architecture.
+
+The command uses a disposable clone, applies the pinned dark-background overlay
+to macOS builds, runs Desktop's complete `ci-check`, runs its existing unsigned
+`make`, and verifies the expected artifacts for that target. This is native
+unsigned packaging evidence only. It is not signing, notarization, installation,
+update, rollback, or provider-backed application evidence.
 
 ## Artifact verification
 
@@ -43,4 +47,5 @@ The first local Apple Silicon run against Desktop
 with 207 tests passed and 3 skipped, verified 39 packaged runtime entries, and
 produced verified DMG and ZIP artifacts. The install also reported 39 existing
 Desktop dependency findings. This repository records that debt but does not
-change Desktop dependencies.
+change Desktop dependencies. Hosted evidence for the expanded target matrix is
+pending the first successful workflow run.

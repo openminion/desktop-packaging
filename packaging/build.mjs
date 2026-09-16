@@ -28,6 +28,7 @@ const dmgBackgroundPath = join(
   "packaging",
   "dmg-background.png",
 );
+const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
 export const inputs = JSON.parse(
   readFileSync(join(repositoryRoot, "packaging", "inputs.json"), "utf8"),
 );
@@ -106,7 +107,7 @@ export function verifyToolchain(manifest = inputs) {
   if (nodeMajor !== manifest.toolchain.node) {
     throw new Error(`expected Node.js ${manifest.toolchain.node}, found ${process.versions.node}`);
   }
-  const npmVersion = run("npm", ["--version"], { capture: true });
+  const npmVersion = run(npmCommand, ["--version"], { capture: true });
   if (npmVersion !== manifest.toolchain.npm) {
     throw new Error(`expected npm ${manifest.toolchain.npm}, found ${npmVersion}`);
   }
@@ -183,20 +184,25 @@ export function verifyArtifact(artifact, manifest = inputs) {
   ) {
     throw new Error("artifact metadata mismatch");
   }
-  if (metadata.desktop?.commit !== manifest.desktop.commit) {
+  if (JSON.stringify(metadata.desktop) !== JSON.stringify(manifest.desktop)) {
     throw new Error("artifact Desktop source mismatch");
   }
+  const target = manifest.targets[metadata.target?.name];
   if (
-    metadata.packaging?.dmg_overlay_sha256 !==
-    manifest.packaging.dmg_overlay_sha256
+    !target ||
+    JSON.stringify(metadata.target) !==
+      JSON.stringify({ name: metadata.target.name, ...target }) ||
+    !target.artifact_extensions.includes(extname(artifact).toLowerCase())
   ) {
-    throw new Error("artifact packaging overlay mismatch");
+    throw new Error("artifact target mismatch");
   }
-  if (
-    metadata.packaging?.dmg_background_sha256 !==
-    manifest.packaging.dmg_background_sha256
-  ) {
-    throw new Error("artifact DMG background mismatch");
+  const expectedPackaging =
+    target.presentation === "dark-dmg" ? manifest.packaging : {};
+  if (JSON.stringify(metadata.packaging) !== JSON.stringify(expectedPackaging)) {
+    throw new Error("artifact packaging metadata mismatch");
+  }
+  if (JSON.stringify(metadata.toolchain) !== JSON.stringify(manifest.toolchain)) {
+    throw new Error("artifact toolchain mismatch");
   }
   if (readFileSync(checksumPath, "utf8") !== `${digest}  ${basename(artifact)}\n`) {
     throw new Error("artifact checksum mismatch");
@@ -208,7 +214,8 @@ export function build(source, targetName, manifest = inputs) {
   verifyToolchain(manifest);
   const target = verifyNativeTarget(targetName, manifest);
   verifySource(source, manifest);
-  verifyDmgOverlay(source, manifest);
+  const usesDmgPresentation = target.presentation === "dark-dmg";
+  if (usesDmgPresentation) verifyDmgOverlay(source, manifest);
 
   const workRoot = mkdtempSync(join(tmpdir(), "openminion-desktop-packaging-"));
   const buildRoot = join(workRoot, "desktop");
@@ -220,13 +227,15 @@ export function build(source, targetName, manifest = inputs) {
       cwd: buildRoot,
     });
     verifySource(buildRoot, manifest);
-    run("git", ["apply", dmgOverlayPath], { cwd: buildRoot });
-    const packagingAssets = join(buildRoot, ".openminion-packaging");
-    mkdirSync(packagingAssets);
-    copyFileSync(dmgBackgroundPath, join(packagingAssets, "dmg-background.png"));
-    run("npm", ["ci"], { cwd: buildRoot });
-    run("npm", ["run", "ci-check"], { cwd: buildRoot });
-    run("npm", ["run", "make"], { cwd: buildRoot });
+    if (usesDmgPresentation) {
+      run("git", ["apply", dmgOverlayPath], { cwd: buildRoot });
+      const packagingAssets = join(buildRoot, ".openminion-packaging");
+      mkdirSync(packagingAssets);
+      copyFileSync(dmgBackgroundPath, join(packagingAssets, "dmg-background.png"));
+    }
+    run(npmCommand, ["ci"], { cwd: buildRoot });
+    run(npmCommand, ["run", "ci-check"], { cwd: buildRoot });
+    run(npmCommand, ["run", "make"], { cwd: buildRoot });
 
     const artifacts = findArtifacts(join(buildRoot, "out", "make"), target.artifact_extensions);
     const observedExtensions = new Set(artifacts.map((path) => extname(path).toLowerCase()));
@@ -247,7 +256,7 @@ export function build(source, targetName, manifest = inputs) {
       copyFileSync(sourceArtifact, destination);
       writeArtifactRecord(destination, {
         desktop: manifest.desktop,
-        packaging: manifest.packaging,
+        packaging: usesDmgPresentation ? manifest.packaging : {},
         target: { name: targetName, ...target },
         toolchain: manifest.toolchain,
       });

@@ -1,28 +1,50 @@
 name: Prototype
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
-  macos:
-    runs-on: macos-14
+  build:
+    name: Build ${{ matrix.target }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-14
+            target: macos-arm64
+          - runner: macos-15-intel
+            target: macos-x64
+          - runner: windows-2022
+            target: windows-x64
+          - runner: ubuntu-22.04
+            target: linux-x64
+
     steps:
       - name: Check out packaging repository
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
-      - name: Require Desktop source access
-        env:
-          DESKTOP_SOURCE_TOKEN: ${{ secrets.DESKTOP_SOURCE_TOKEN }}
-        run: test -n "$DESKTOP_SOURCE_TOKEN"
+        with:
+          persist-credentials: false
+
       - name: Check out exact Desktop source
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           repository: openminion/desktop
-          ref: 6ab6893580a2f5381e83d9c2fed5ddd5216a0631
+          ref: bd715e89891da7bdab0f9d827ec306f20733f0ff
           path: desktop-source
           token: ${{ secrets.DESKTOP_SOURCE_TOKEN }}
+          persist-credentials: false
+
       - name: Set up Node.js
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
@@ -31,13 +53,21 @@ jobs:
           cache-dependency-path: desktop-source/package-lock.json
       - name: Install exact npm
         run: npm install --global npm@11.12.1
+
       - name: Check packaging repository
         run: npm run check
+
+      - name: Install Linux packaging tools
+        if: matrix.target == 'linux-x64'
+        run: sudo apt-get update && sudo apt-get install --yes fakeroot
+
       - name: Build unsigned native prototype
-        run: node packaging/build.mjs build --source desktop-source --target macos-arm64
+        run: node packaging/build.mjs build --source desktop-source --target ${{ matrix.target }}
+
       - name: Upload temporary artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: openminion-desktop-macos-arm64
-          path: dist/openminion-desktop-*
-          retention-days: 3
+          name: openminion-desktop-${{ matrix.target }}
+          path: dist/openminion-desktop-*-${{ matrix.target }}*
+          if-no-files-found: error
+          retention-days: 14

@@ -79,10 +79,17 @@ test("repository documentation surface is complete", () => {
   }
 });
 
-test("input manifest pins one honest native prototype target", () => {
+test("input manifest pins the accepted native prototype targets", () => {
   assert.equal(inputs.schema_version, 1);
-  assert.deepEqual(Object.keys(inputs.targets), ["macos-arm64"]);
-  assert.equal(inputs.targets["macos-arm64"].status, "unsigned-prototype");
+  assert.deepEqual(Object.keys(inputs.targets), [
+    "macos-arm64",
+    "macos-x64",
+    "windows-x64",
+    "linux-x64",
+  ]);
+  for (const target of Object.values(inputs.targets)) {
+    assert.equal(target.status, "unsigned-prototype");
+  }
   assert.equal(inputs.packaging.dmg_background_color, "#171A1F");
   assert.match(inputs.desktop.commit, /^[0-9a-f]{40}$/);
 });
@@ -144,6 +151,8 @@ test("artifact record is portable and detects mutation", () => {
     writeArtifactRecord(artifact, {
       desktop: inputs.desktop,
       packaging: inputs.packaging,
+      target: { name: "macos-arm64", ...inputs.targets["macos-arm64"] },
+      toolchain: inputs.toolchain,
     });
     assert.equal(verifyArtifact(artifact).artifact.filename, "OpenMinion.dmg");
     assert.equal(

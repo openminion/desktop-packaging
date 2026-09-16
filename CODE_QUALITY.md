@@ -7,5 +7,5 @@ Keep this repository small and release-focused.
 - Use argument arrays for subprocesses; do not construct shell commands.
 - Pin source, toolchain, workflow actions, and artifact identities.
 - Add tests for changes to input or artifact contracts.
+- Build every claimed target on its matching native GitHub runner.
 - Run `make check` before pushing.
-

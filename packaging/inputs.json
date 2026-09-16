@@ -2,13 +2,13 @@
   "schema_version": 1,
   "desktop": {
     "repository": "https://github.com/openminion/desktop",
-    "commit": "6ab6893580a2f5381e83d9c2fed5ddd5216a0631",
+    "commit": "bd715e89891da7bdab0f9d827ec306f20733f0ff",
     "package_name": "@openminion/desktop",
     "product_name": "OpenMinion",
     "version": "0.0.0",
-    "package_json_sha256": "92e631622d3213413c7e175355ce2e66b8c5a68af111dcab679cb0edbca50344",
-    "package_lock_sha256": "6d593bfba0ffa3bda1afae114980a6ee48db55dc62dde62e3a486e66ae7d284c",
-    "forge_config_sha256": "290f9c6856f944617670dc318179730d084aef24eee74881a5f5405e975a8f21"
+    "package_json_sha256": "f073e99ddc3f673d67df4329843856fd07d4d0e354ef1cafbcbcd929227b402b",
+    "package_lock_sha256": "60d16a7bd8b792eacbb40b5b8683179aea37ce3175bcd12a0f6e40dfd3335db1",
+    "forge_config_sha256": "16b69532d28b69cf173f0b8c81115840008df0dca9d389504181b2a2bb16f436"
   },
   "toolchain": {
     "node": "24",
@@ -19,17 +19,50 @@
   "packaging": {
     "dmg_background_color": "#171A1F",
     "dmg_background_sha256": "e77fa7b0abe08c62faf7d38f68cb5c90f0536c4a79abea5583e46348b767f324",
-    "dmg_overlay_sha256": "b19158ba8e415cfb3217d165ce7611459fb75bae23e4635106a1b22c01daf20e"
+    "dmg_overlay_sha256": "31c6460dd438ef6c2abf6e007a09d42f27c52226ee8549d51847d3ee7a784125"
   },
   "targets": {
     "macos-arm64": {
       "platform": "darwin",
       "architecture": "arm64",
-      "minimum_os": "14",
+      "runner": "macos-14",
       "artifact_extensions": [
         ".dmg",
         ".zip"
       ],
+      "presentation": "dark-dmg",
+      "status": "unsigned-prototype"
+    },
+    "macos-x64": {
+      "platform": "darwin",
+      "architecture": "x64",
+      "runner": "macos-15-intel",
+      "artifact_extensions": [
+        ".dmg",
+        ".zip"
+      ],
+      "presentation": "dark-dmg",
+      "status": "unsigned-prototype"
+    },
+    "windows-x64": {
+      "platform": "win32",
+      "architecture": "x64",
+      "runner": "windows-2022",
+      "artifact_extensions": [
+        ".zip"
+      ],
+      "presentation": "native",
+      "status": "unsigned-prototype"
+    },
+    "linux-x64": {
+      "platform": "linux",
+      "architecture": "x64",
+      "runner": "ubuntu-22.04",
+      "artifact_extensions": [
+        ".deb",
+        ".zip"
+      ],
+      "presentation": "native",
       "status": "unsigned-prototype"
     }
   }

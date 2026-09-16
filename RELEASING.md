@@ -11,8 +11,7 @@ Public release activation requires separately approved evidence for:
 2. Apple signing and notarization,
 3. clean-machine installation and first launch,
 4. update, rollback, migration, and uninstall behavior,
-5. supported macOS floors and architectures,
+5. supported operating-system floors and architectures,
 6. release-key and publication authority.
 
 Do not add a release event or signing secrets to the prototype workflow.
-

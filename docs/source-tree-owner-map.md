@@ -8,7 +8,7 @@
 | `packaging/dmg-dark-background.patch` | Packaging-only dark DMG presentation overlay |
 | `packaging/build.mjs` | Source verification, disposable build, artifact staging, and verification |
 | `tests/` | Packaging contract regression tests |
-| `.github/workflows/prototype.yml` | Manual native prototype orchestration |
+| `.github/workflows/prototype.yml` | Native prototype matrix and artifact upload |
 | `docs/` | Packaging operation and proof boundaries |
 | `dist/` | Ignored generated artifacts |
 
