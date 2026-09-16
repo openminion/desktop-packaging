@@ -38,11 +38,15 @@ export function sha256(path) {
 }
 
 export function run(command, args, options = {}) {
-  const result = spawnSync(command, args, {
+  const isWindowsCommand = process.platform === "win32" && command.endsWith(".cmd");
+  const executable = isWindowsCommand ? process.env.ComSpec || "cmd.exe" : command;
+  const commandArgs = isWindowsCommand
+    ? ["/d", "/s", "/c", [command, ...args].join(" ")]
+    : args;
+  const result = spawnSync(executable, commandArgs, {
     cwd: options.cwd,
     encoding: "utf8",
     env: options.env ?? process.env,
-    shell: process.platform === "win32" && command.endsWith(".cmd"),
     stdio: options.capture ? "pipe" : "inherit",
   });
   if (result.status !== 0) {

@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           repository: openminion/desktop
-          ref: 69f72d930101bc812d683b7e639ee7811cc82614
+          ref: e7acf2ce63da16effb31e607e4529256d565f0b9
           path: desktop-source
           token: ${{ secrets.DESKTOP_SOURCE_TOKEN }}
           persist-credentials: false
