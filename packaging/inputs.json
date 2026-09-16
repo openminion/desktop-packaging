@@ -2,7 +2,7 @@
   "schema_version": 1,
   "desktop": {
     "repository": "https://github.com/openminion/desktop",
-    "commit": "e7acf2ce63da16effb31e607e4529256d565f0b9",
+    "commit": "932c019d1195fbf9392018b946e3b5f91c6ca67a",
     "package_name": "@openminion/desktop",
     "product_name": "OpenMinion",
     "version": "0.0.0",

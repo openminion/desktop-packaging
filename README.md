@@ -13,7 +13,7 @@ No artifact produced here is currently a supported public download.
 The native targets are unsigned `macos-arm64`, `macos-x64`, `windows-x64`,
 and `linux-x64`. Every build pins:
 
-- Desktop commit `e7acf2ce63da16effb31e607e4529256d565f0b9`
+- Desktop commit `932c019d1195fbf9392018b946e3b5f91c6ca67a`
 - Node.js 24 and npm 11.12.1
 - Electron 43.1.1 and Electron Forge 7.11.2 from Desktop's lockfile
 - the exact Desktop `package.json`, `package-lock.json`, and `forge.config.ts`
