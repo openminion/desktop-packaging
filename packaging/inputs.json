@@ -2,13 +2,13 @@
   "schema_version": 1,
   "desktop": {
     "repository": "https://github.com/openminion/desktop",
-    "commit": "bd715e89891da7bdab0f9d827ec306f20733f0ff",
+    "commit": "69f72d930101bc812d683b7e639ee7811cc82614",
     "package_name": "@openminion/desktop",
     "product_name": "OpenMinion",
     "version": "0.0.0",
     "package_json_sha256": "f073e99ddc3f673d67df4329843856fd07d4d0e354ef1cafbcbcd929227b402b",
     "package_lock_sha256": "60d16a7bd8b792eacbb40b5b8683179aea37ce3175bcd12a0f6e40dfd3335db1",
-    "forge_config_sha256": "16b69532d28b69cf173f0b8c81115840008df0dca9d389504181b2a2bb16f436"
+    "forge_config_sha256": "f597daacedee1b09406beb16401f5852530062292c93fac903a092101cbb5a92"
   },
   "toolchain": {
     "node": "24",
