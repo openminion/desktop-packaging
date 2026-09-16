@@ -92,6 +92,10 @@ test("input manifest pins the accepted native prototype targets", () => {
   }
   assert.equal(inputs.packaging.dmg_background_color, "#171A1F");
   assert.match(inputs.desktop.commit, /^[0-9a-f]{40}$/);
+  assert.match(
+    readFileSync(new URL("../.github/workflows/prototype.yml", import.meta.url), "utf8"),
+    new RegExp(`ref: ${inputs.desktop.commit}`),
+  );
 });
 
 test("DMG background asset and overlay are pinned", () => {
