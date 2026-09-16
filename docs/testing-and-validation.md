@@ -42,10 +42,17 @@ portable SHA-256 file to agree with the current input manifest.
 
 ## Current native evidence
 
-The first local Apple Silicon run against Desktop
-`6ab6893580a2f5381e83d9c2fed5ddd5216a0631` completed Desktop's `ci-check`
-with 207 tests passed and 3 skipped, verified 39 packaged runtime entries, and
-produced verified DMG and ZIP artifacts. The install also reported 39 existing
-Desktop dependency findings. This repository records that debt but does not
-change Desktop dependencies. Hosted evidence for the expanded target matrix is
-pending the first successful workflow run.
+[GitHub run 35056130078](https://github.com/openminion/desktop-packaging/actions/runs/35056130078)
+passed on all four native targets against Desktop
+`1867ca2d3703c29f3d8c8808b71f39b8c42215c0`. Each job completed Desktop's
+`ci-check`, verified 39 packaged runtime entries, built the target's expected
+formats, and uploaded the resulting bundle. The seven downloaded packages were
+then reverified locally against their adjacent JSON metadata and SHA-256 files:
+
+- macOS arm64: DMG and ZIP
+- macOS x64: DMG and ZIP
+- Windows x64: ZIP
+- Linux x64: DEB and ZIP
+
+Each native install reported 40 existing Desktop dependency findings. This
+repository records that debt but does not change Desktop dependencies.

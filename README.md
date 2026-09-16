@@ -24,6 +24,12 @@ commands on the native target. macOS builds apply the packaging-owned dark DMG
 background in that disposable clone. Every resulting artifact is staged with
 portable metadata and a SHA-256 file. The source checkout is never edited.
 
+Hosted builds are listed in the
+[Prototype workflow](https://github.com/openminion/desktop-packaging/actions/workflows/prototype.yml).
+The current verified matrix is
+[run 35056130078](https://github.com/openminion/desktop-packaging/actions/runs/35056130078).
+Its unsigned artifacts are retained by GitHub for 14 days.
+
 ## Local use
 
 Use Node.js 24 and npm 11.12.1, then place this repository beside a clean
