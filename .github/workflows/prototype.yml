@@ -16,6 +16,8 @@ jobs:
     name: Build ${{ matrix.target }}
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 45
+    env:
+      TARGET: ${{ matrix.target }}
     strategy:
       fail-fast: false
       matrix:
@@ -50,7 +52,7 @@ jobs:
           cache: npm
           cache-dependency-path: desktop-source/package-lock.json
       - name: Install exact npm
-        run: npm install --global npm@11.12.1
+        run: npm install --global npm@11.12.1 # zizmor: ignore[adhoc-packages] Exact release toolchain pin.
 
       - name: Check packaging repository
         run: npm run check
@@ -60,7 +62,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install --yes fakeroot
 
       - name: Build unsigned native prototype
-        run: node packaging/build.mjs build --source desktop-source --target ${{ matrix.target }}
+        run: node packaging/build.mjs build --source desktop-source --target "$TARGET"
 
       - name: Upload temporary artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
