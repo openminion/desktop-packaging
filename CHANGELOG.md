@@ -2,14 +2,16 @@
 
 ## Unreleased
 
+- Refresh official GitHub Actions pins to current Node.js 24 releases and
+  record the completed public-source and Git-history audit.
 - Run the cross-platform prototype build command under Bash so the matrix target
   reaches the builder consistently on Windows, macOS, and Linux runners.
 - Keep Windows subprocess arguments structured and align public guidance with
   the current CI, prototype, and nonpublishing package boundaries.
 - Route the prototype target through a quoted environment value before the
   shell boundary while retaining the exact pinned npm toolchain bootstrap.
-- Add direct security/support links, make hosted verification pending in the
-  public-readiness status, and record third-party redistribution evidence as a
+- Add direct security/support links, complete post-conversion hosted
+  verification, and record third-party redistribution evidence as a
   release-activation gate.
 - Keep the historical four-platform prototype matrix manual-only until its
   pinned Desktop input is current.
