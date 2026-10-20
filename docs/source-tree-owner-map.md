@@ -2,6 +2,7 @@
 
 | Path | Responsibility |
 | --- | --- |
+| `.github/workflows/ci.yml` | Read-only pull-request and branch quality gate |
 | `packaging/inputs.json` | Exact Desktop, toolchain, and target identities |
 | `packaging/dmg-background.svg` | Editable source for the dark installer background |
 | `packaging/dmg-background.png` | Pinned background consumed by the native build |

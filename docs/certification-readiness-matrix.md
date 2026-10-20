@@ -2,6 +2,7 @@
 
 | Capability | Current evidence | Status |
 | --- | --- | --- |
+| Public source visibility | Tracked files and history contain no generated packages or known credential material; public Desktop source needs no token | Prepared |
 | Packaging repository isolation | Source-verification and disposable-clone tests | Ready |
 | Exact Desktop input | Commit and release-file hashes in `inputs.json` | Ready |
 | macOS ARM64 unsigned package | Hosted run 35056130078 passed; downloaded DMG and ZIP reverified | Prototype passed |
@@ -14,6 +15,7 @@
 | Apple signing and notarization | Not implemented | Blocked |
 | Clean-machine installation and first launch | Not run from this repository | Blocked |
 | Update, rollback, migration, and uninstall | Not implemented | Blocked |
+| Current Desktop revision | Existing native evidence covers only the pinned historical baseline | Refresh required |
 | Public release | Workflow is intentionally nonpublishing | Blocked |
 
 Only evidence from the exact pinned revision and native target can advance a

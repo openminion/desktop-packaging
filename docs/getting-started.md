@@ -21,6 +21,5 @@ The build reads the source repository, creates a disposable clone, and writes
 verified artifacts under `dist/`. It does not install dependencies or create
 build output in the source checkout.
 
-GitHub uses a repository secret named `DESKTOP_SOURCE_TOKEN` to read the private
-Desktop source repository. Prefer a fine-grained token limited to read-only
-Desktop contents; the organization currently disables repository deploy keys.
+GitHub checks out the public `openminion/desktop` repository with the workflow's
+read-only token. No cross-repository source credential is required.

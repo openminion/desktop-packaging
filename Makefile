@@ -1,6 +1,6 @@
 NODE ?= node
 
-.PHONY: help syntax test workflow-check check
+.PHONY: help syntax test workflow-check check release-check
 
 help:
 	@printf '%s\n' \
@@ -8,7 +8,8 @@ help:
 		'  make syntax         Check JavaScript syntax' \
 		'  make test           Run repository tests' \
 		'  make workflow-check Validate GitHub Actions syntax' \
-		'  make check          Run every local repository gate'
+		'  make check          Run every local repository gate' \
+		'  make release-check  Run the release-facing repository gate'
 
 syntax:
 	$(NODE) --check packaging/build.mjs
@@ -18,6 +19,9 @@ test:
 	$(NODE) --test tests/*.test.mjs
 
 workflow-check:
-	actionlint .github/workflows/prototype.yml
+	actionlint .github/workflows/ci.yml .github/workflows/prototype.yml
 
 check: syntax test workflow-check
+
+release-check: check
+	git diff --check

@@ -1,17 +1,18 @@
 # OpenMinion Desktop Packaging
 
-Status: private prototype
+Status: public-source ready; release assembly remains a nonpublishing prototype
 
 This repository turns an exact, clean OpenMinion Desktop revision into verified
 native distribution artifacts. It owns release assembly only. It does not
 contain, patch, or replace Desktop application source or Forge configuration.
 
-No artifact produced here is currently a supported public download.
+The repository source may be public. No artifact produced here is currently a
+supported public download.
 
-## Current prototype
+## Validated prototype baseline
 
-The native targets are unsigned `macos-arm64`, `macos-x64`, `windows-x64`,
-and `linux-x64`. Every build pins:
+The last validated baseline covers unsigned `macos-arm64`, `macos-x64`,
+`windows-x64`, and `linux-x64`. It pins:
 
 - Desktop commit `1867ca2d3703c29f3d8c8808b71f39b8c42215c0`
 - Node.js 24 and npm 11.12.1
@@ -24,11 +25,17 @@ commands on the native target. macOS builds apply the packaging-owned dark DMG
 background in that disposable clone. Every resulting artifact is staged with
 portable metadata and a SHA-256 file. The source checkout is never edited.
 
-Hosted builds are listed in the
+Historical hosted evidence is listed in the
 [Prototype workflow](https://github.com/openminion/desktop-packaging/actions/workflows/prototype.yml).
-The current verified matrix is
+The validated matrix is
 [run 35056130078](https://github.com/openminion/desktop-packaging/actions/runs/35056130078).
 Its unsigned artifacts are retained by GitHub for 14 days.
+
+The public [`openminion/desktop`](https://github.com/openminion/desktop)
+repository owns current unsigned development packages. This repository remains
+the isolated production release-assembly prototype; it must not duplicate the
+Desktop repository's development-release workflow or be presented as the
+current Desktop release channel.
 
 ## Local use
 
@@ -67,6 +74,13 @@ Desktop application behavior, source builds, Forge configuration, and unsigned
 developer packaging remain owned by `openminion/desktop`. OpenMinion runtime
 packaging remains owned by `openminion/openminion-packaging`. This repository
 does not share build code with either owner.
+
+## Public repository boundary
+
+Public visibility exposes prototype source, tests, documentation, and workflow
+logs. It does not authorize signing, production publication, or automatic
+updates. See [Releasing](RELEASING.md) for the conversion checklist and the
+remaining activation gates.
 
 ## Documentation
 
