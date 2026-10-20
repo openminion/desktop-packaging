@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Run the cross-platform prototype build command under Bash so the matrix target
+  reaches the builder consistently on Windows, macOS, and Linux runners.
 - Keep Windows subprocess arguments structured and align public guidance with
   the current CI, prototype, and nonpublishing package boundaries.
 - Route the prototype target through a quoted environment value before the
