@@ -1,6 +1,7 @@
 # OpenMinion Desktop Packaging
 
-Status: public-source ready; release assembly remains a nonpublishing prototype
+Status: public-source conversion prepared; hosted verification pending; release
+assembly remains a nonpublishing prototype
 
 This repository turns an exact, clean OpenMinion Desktop revision into verified
 native distribution artifacts. It owns release assembly only. It does not

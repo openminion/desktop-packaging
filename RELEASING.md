@@ -12,7 +12,10 @@ Public release activation requires separately approved evidence for:
 3. clean-machine installation and first launch,
 4. update, rollback, migration, and uninstall behavior,
 5. supported operating-system floors and architectures,
-6. release-key and publication authority.
+6. a reviewed third-party license inventory plus every required notice and
+   source-offer artifact for the packaged Electron, Node.js, and npm dependency
+   set, and
+7. release-key and publication authority.
 
 Do not add a release event or signing secrets to the prototype workflow.
 
@@ -31,16 +34,18 @@ first checklist item before accepting any other repository change.
 
 1. require pull requests and the passing `CI / Repository check` status for
    `main` and `dev`, and block force pushes and branch deletion,
-2. retain read-only workflow permissions and keep the prototype workflow
+2. enable GitHub private vulnerability reporting and verify the link in
+   `SECURITY.md` from a non-maintainer session,
+3. retain read-only workflow permissions and keep the prototype workflow
    limited to `main` pushes and manual dispatch,
-3. confirm the workflow checks out public `openminion/desktop` without a source
+4. confirm the workflow checks out public `openminion/desktop` without a source
    token and that no obsolete source credential is configured,
-4. confirm that no Apple credential, certificate, notarization secret,
+5. confirm that no Apple credential, certificate, notarization secret,
    generated package, or restricted evidence is tracked in Git history,
-5. leave GitHub Releases and production signing disabled,
-6. run `make check`, then run the native prototype matrix once after conversion
+6. leave GitHub Releases and production signing disabled,
+7. run `make check`, then run the native prototype matrix once after conversion
    to verify public-runner access on every target, and
-7. refresh the pinned Desktop revision before making any current packaging or
+8. refresh the pinned Desktop revision before making any current packaging or
    release-readiness claim.
 
 Public workflow logs and temporary Actions artifacts are expected. Temporary

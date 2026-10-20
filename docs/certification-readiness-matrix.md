@@ -12,6 +12,7 @@
 | Packaged contents | All four native jobs found 39 reviewed runtime entries | Prototype passed |
 | Artifact provenance | All seven downloaded packages matched JSON metadata and SHA-256 files | Prototype passed |
 | Desktop dependency audit | Exact native installs report 40 findings | Open debt |
+| Third-party redistribution evidence | Packaged dependency licenses and required notices have not been reviewed as one release artifact set | Pending |
 | Apple signing and notarization | Not implemented | Blocked |
 | Clean-machine installation and first launch | Not run from this repository | Blocked |
 | Update, rollback, migration, and uninstall | Not implemented | Blocked |
