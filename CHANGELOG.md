@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Keep Windows subprocess arguments structured and align public guidance with
+  the current CI, prototype, and nonpublishing package boundaries.
 - Prepare the repository for public source visibility while keeping release
   publication disabled.
 - Remove the obsolete credential used to clone the now-public Desktop source.

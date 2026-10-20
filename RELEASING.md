@@ -25,12 +25,16 @@ change that ownership.
 
 Complete this checklist when the repository is made public:
 
+The current GitHub Free organization cannot preconfigure branch protection
+while this repository is private. After changing visibility, configure the
+first checklist item before accepting any other repository change.
+
 1. require pull requests and the passing `CI / Repository check` status for
    `main` and `dev`, and block force pushes and branch deletion,
 2. retain read-only workflow permissions and keep the prototype workflow
    limited to `main` pushes and manual dispatch,
 3. confirm the workflow checks out public `openminion/desktop` without a source
-   token and remove the obsolete `DESKTOP_SOURCE_TOKEN` repository secret,
+   token and that no obsolete source credential is configured,
 4. confirm that no Apple credential, certificate, notarization secret,
    generated package, or restricted evidence is tracked in Git history,
 5. leave GitHub Releases and production signing disabled,
