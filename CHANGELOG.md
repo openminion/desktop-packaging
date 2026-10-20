@@ -7,6 +7,8 @@
 - Add direct security/support links, make hosted verification pending in the
   public-readiness status, and record third-party redistribution evidence as a
   release-activation gate.
+- Keep the historical four-platform prototype matrix manual-only until its
+  pinned Desktop input is current.
 - Prepare the repository for public source visibility while keeping release
   publication disabled.
 - Remove the obsolete credential used to clone the now-public Desktop source.

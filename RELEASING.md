@@ -37,7 +37,7 @@ first checklist item before accepting any other repository change.
 2. enable GitHub private vulnerability reporting and verify the link in
    `SECURITY.md` from a non-maintainer session,
 3. retain read-only workflow permissions and keep the prototype workflow
-   limited to `main` pushes and manual dispatch,
+   manual and guarded to `refs/heads/main`,
 4. confirm the workflow checks out public `openminion/desktop` without a source
    token and that no obsolete source credential is configured,
 5. confirm that no Apple credential, certificate, notarization secret,

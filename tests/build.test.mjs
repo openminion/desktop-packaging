@@ -98,6 +98,9 @@ test("input manifest pins the accepted native prototype targets", () => {
   );
   assert.match(workflow, new RegExp(`ref: ${inputs.desktop.commit}`));
   assert.doesNotMatch(workflow, /DESKTOP_SOURCE_TOKEN/);
+  assert.match(workflow, /^  workflow_dispatch:$/m);
+  assert.doesNotMatch(workflow, /^  push:$/m);
+  assert.match(workflow, /^    if: github\.ref == 'refs\/heads\/main'$/m);
 });
 
 test("DMG background asset and overlay are pinned", () => {

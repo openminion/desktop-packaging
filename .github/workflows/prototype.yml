@@ -1,8 +1,6 @@
 name: Prototype
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 concurrency:
@@ -14,6 +12,7 @@ permissions:
 
 jobs:
   build:
+    if: github.ref == 'refs/heads/main'
     name: Build ${{ matrix.target }}
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 45
