@@ -9,7 +9,7 @@ make check
 The read-only `CI` workflow runs this same gate for pull requests and pushes to
 `dev` and `main`. Use its `Repository check` job as the required branch status
 check after public conversion. The separate native prototype matrix remains a
-manual or `main`-push proof surface.
+manual, `main`-only proof surface while its pinned Desktop input is historical.
 
 ## Input verification
 
