@@ -9,3 +9,4 @@ Keep this repository small and release-focused.
 - Add tests for changes to input or artifact contracts.
 - Build every claimed target on its matching native GitHub runner.
 - Run `make check` before pushing.
+- Run `make release-check` for packaging, workflow, or public-guidance changes.
