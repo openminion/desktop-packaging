@@ -42,7 +42,6 @@ jobs:
           repository: openminion/desktop
           ref: 1867ca2d3703c29f3d8c8808b71f39b8c42215c0
           path: desktop-source
-          token: ${{ secrets.DESKTOP_SOURCE_TOKEN }}
           persist-credentials: false
 
       - name: Set up Node.js

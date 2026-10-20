@@ -6,6 +6,11 @@
 make check
 ```
 
+The read-only `CI` workflow runs this same gate for pull requests and pushes to
+`dev` and `main`. Use its `Repository check` job as the required branch status
+check after public conversion. The separate native prototype matrix remains a
+manual or `main`-push proof surface.
+
 ## Input verification
 
 ```bash
@@ -40,10 +45,10 @@ node packaging/build.mjs verify --artifact dist/<artifact>
 Verification requires the artifact, adjacent JSON metadata, and adjacent
 portable SHA-256 file to agree with the current input manifest.
 
-## Current native evidence
+## Validated baseline evidence
 
 [GitHub run 35056130078](https://github.com/openminion/desktop-packaging/actions/runs/35056130078)
-passed on all four native targets against Desktop
+passed on all four native targets against the historical Desktop baseline
 `1867ca2d3703c29f3d8c8808b71f39b8c42215c0`. Each job completed Desktop's
 `ci-check`, verified 39 packaged runtime entries, built the target's expected
 formats, and uploaded the resulting bundle. The seven downloaded packages were
@@ -56,3 +61,7 @@ then reverified locally against their adjacent JSON metadata and SHA-256 files:
 
 Each native install reported 40 existing Desktop dependency findings. This
 repository records that debt but does not change Desktop dependencies.
+
+This evidence does not describe the current Desktop revision or its current
+unsigned development releases. Refresh the pinned input and rerun the complete
+native matrix before making any new release-readiness claim.
