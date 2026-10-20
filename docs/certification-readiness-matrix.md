@@ -2,13 +2,13 @@
 
 | Capability | Current evidence | Status |
 | --- | --- | --- |
-| Public source visibility | Tracked files and history contain no generated packages or known credential material; public Desktop source needs no token | Prepared |
+| Public source visibility | Protected `main` and `dev`, read-only default Actions permissions, private vulnerability reporting, secret scanning with push protection, and the 2026-10-20 tracked-history audit are active. | Ready |
 | Packaging repository isolation | Source-verification and disposable-clone tests | Ready |
 | Exact Desktop input | Commit and release-file hashes in `inputs.json` | Ready |
-| macOS ARM64 unsigned package | Hosted run 35056130078 passed; downloaded DMG and ZIP reverified | Prototype passed |
-| macOS x64 unsigned package | Hosted run 35056130078 passed; downloaded DMG and ZIP reverified | Prototype passed |
-| Windows x64 unsigned package | Hosted run 35056130078 passed; downloaded ZIP reverified | Prototype passed |
-| Linux x64 unsigned package | Hosted run 35056130078 passed; downloaded DEB and ZIP reverified | Prototype passed |
+| macOS ARM64 unsigned package | Post-conversion hosted run 39417001621 passed and verified metadata and checksums before upload. | Prototype passed |
+| macOS x64 unsigned package | Post-conversion hosted run 39417001621 passed and verified metadata and checksums before upload. | Prototype passed |
+| Windows x64 unsigned package | Post-conversion hosted run 39417001621 passed and verified metadata and checksums before upload. | Prototype passed |
+| Linux x64 unsigned package | Post-conversion hosted run 39417001621 passed and verified metadata and checksums before upload. | Prototype passed |
 | Packaged contents | All four native jobs found 39 reviewed runtime entries | Prototype passed |
 | Artifact provenance | All seven downloaded packages matched JSON metadata and SHA-256 files | Prototype passed |
 | Desktop dependency audit | Exact native installs report 40 findings | Open debt |
