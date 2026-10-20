@@ -102,6 +102,10 @@ test("input manifest pins the accepted native prototype targets", () => {
   assert.doesNotMatch(workflow, /^  push:$/m);
   assert.match(workflow, /^    if: github\.ref == 'refs\/heads\/main'$/m);
   assert.doesNotMatch(workflow, /^\s+run:.*\$\{\{\s*matrix\./m);
+  assert.match(
+    workflow,
+    /- name: Build unsigned native prototype\n\s+shell: bash\n\s+run: node packaging\/build\.mjs build --source desktop-source --target "\$TARGET"/,
+  );
 });
 
 test("DMG background asset and overlay are pinned", () => {
