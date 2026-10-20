@@ -62,6 +62,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install --yes fakeroot
 
       - name: Build unsigned native prototype
+        shell: bash
         run: node packaging/build.mjs build --source desktop-source --target "$TARGET"
 
       - name: Upload temporary artifacts
