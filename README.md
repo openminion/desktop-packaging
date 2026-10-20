@@ -1,13 +1,13 @@
 # OpenMinion Desktop Packaging
 
-Status: public-source conversion prepared; hosted verification pending; release
-assembly remains a nonpublishing prototype
+Status: public source with protected `main` and `dev` branches and a verified
+four-platform hosted prototype; release assembly remains nonpublishing
 
 This repository turns an exact, clean OpenMinion Desktop revision into verified
 native distribution artifacts. It owns release assembly only. It does not
 contain, patch, or replace Desktop application source or Forge configuration.
 
-The repository source may be public. No artifact produced here is currently a
+The repository source is public. No artifact produced here is currently a
 supported public download.
 
 ## Validated prototype baseline
@@ -26,10 +26,10 @@ commands on the native target. macOS builds apply the packaging-owned dark DMG
 background in that disposable clone. Every resulting artifact is staged with
 portable metadata and a SHA-256 file. The source checkout is never edited.
 
-Historical hosted evidence is listed in the
+Hosted evidence is listed in the
 [Prototype workflow](https://github.com/openminion/desktop-packaging/actions/workflows/prototype.yml).
-The validated matrix is
-[run 35056130078](https://github.com/openminion/desktop-packaging/actions/runs/35056130078).
+The latest post-conversion four-platform matrix is
+[run 39417001621](https://github.com/openminion/desktop-packaging/actions/runs/39417001621).
 Its unsigned artifacts are retained by GitHub for 14 days.
 
 The public [`openminion/desktop`](https://github.com/openminion/desktop)

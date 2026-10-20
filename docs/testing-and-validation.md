@@ -7,8 +7,8 @@ make check
 ```
 
 The read-only `CI` workflow runs this same gate for pull requests and pushes to
-`dev` and `main`. Use its `Repository check` job as the required branch status
-check after public conversion. The separate native prototype matrix remains a
+`dev` and `main`. Its `Repository check` job is the required protected-branch
+status check. The separate native prototype matrix remains a
 manual, `main`-only proof surface while its pinned Desktop input is historical.
 
 ## Input verification
@@ -47,8 +47,13 @@ portable SHA-256 file to agree with the current input manifest.
 
 ## Validated baseline evidence
 
+[Post-conversion run 39417001621](https://github.com/openminion/desktop-packaging/actions/runs/39417001621)
+passed on all four native targets after the Windows matrix-target fix. Each job
+verified its artifact metadata and SHA-256 sidecars before uploading the
+temporary bundle.
+
 [GitHub run 35056130078](https://github.com/openminion/desktop-packaging/actions/runs/35056130078)
-passed on all four native targets against the historical Desktop baseline
+also passed on all four native targets against the historical Desktop baseline
 `1867ca2d3703c29f3d8c8808b71f39b8c42215c0`. Each job completed Desktop's
 `ci-check`, verified 39 packaged runtime entries, built the target's expected
 formats, and uploaded the resulting bundle. The seven downloaded packages were
