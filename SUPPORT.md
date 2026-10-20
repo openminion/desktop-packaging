@@ -6,6 +6,8 @@ Its source may be public, but its artifacts are not supported downloads. It does
 not currently support signing, notarization, updates, rollback, or production
 installation claims.
 
-Use repository issues for packaging defects that do not contain sensitive
-information. Desktop application defects belong in `openminion/desktop`.
+Use [repository issues](https://github.com/openminion/desktop-packaging/issues/new)
+for packaging defects that do not contain sensitive information. Desktop
+application defects belong in `openminion/desktop`.
+
 Current unsigned Desktop development packages also belong to that repository.

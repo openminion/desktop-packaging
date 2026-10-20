@@ -1,6 +1,7 @@
 # OpenMinion Desktop Packaging
 
-Status: public-source ready; release assembly remains a nonpublishing prototype
+Status: public-source conversion prepared; hosted verification pending; release
+assembly remains a nonpublishing prototype
 
 This repository turns an exact, clean OpenMinion Desktop revision into verified
 native distribution artifacts. It owns release assembly only. It does not
@@ -33,7 +34,7 @@ Its unsigned artifacts are retained by GitHub for 14 days.
 
 The public [`openminion/desktop`](https://github.com/openminion/desktop)
 repository owns current unsigned development packages. This repository remains
-the isolated production release-assembly prototype; it must not duplicate the
+the isolated release-assembly prototype; it must not duplicate the
 Desktop repository's development-release workflow or be presented as the
 current Desktop release channel.
 
@@ -79,8 +80,9 @@ does not share build code with either owner.
 
 Public visibility exposes prototype source, tests, documentation, and workflow
 logs. It does not authorize signing, production publication, or automatic
-updates. See [Releasing](RELEASING.md) for the conversion checklist and the
-remaining activation gates.
+updates. The npm package remains private to prevent accidental registry
+publication. See [Releasing](RELEASING.md) for the conversion checklist and
+the remaining activation gates.
 
 ## Documentation
 

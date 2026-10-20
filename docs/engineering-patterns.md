@@ -9,6 +9,8 @@
 6. Record artifact identity with portable JSON and SHA-256 files.
 7. Build only on the native platform being claimed.
 8. Keep signing, publication, updates, and added platforms out until approved.
+9. Pass workflow matrix values through quoted environment variables before
+   they enter shell commands.
 
 Use direct subprocess argument arrays and ordinary files. Do not add a generic
 packaging framework, plugin layer, registry, event bus, or duplicate application

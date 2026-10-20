@@ -41,7 +41,7 @@ export function run(command, args, options = {}) {
   const isWindowsCommand = process.platform === "win32" && command.endsWith(".cmd");
   const executable = isWindowsCommand ? process.env.ComSpec || "cmd.exe" : command;
   const commandArgs = isWindowsCommand
-    ? ["/d", "/s", "/c", [command, ...args].join(" ")]
+    ? ["/d", "/s", "/c", command, ...args]
     : args;
   const result = spawnSync(executable, commandArgs, {
     cwd: options.cwd,
@@ -74,12 +74,11 @@ export function verifySource(source, manifest = inputs) {
     throw new Error("Desktop source checkout must be clean");
   }
 
-  const expectedFiles = new Map([
+  for (const [relativePath, expected] of [
     ["package.json", manifest.desktop.package_json_sha256],
     ["package-lock.json", manifest.desktop.package_lock_sha256],
     ["forge.config.ts", manifest.desktop.forge_config_sha256],
-  ]);
-  for (const [relativePath, expected] of expectedFiles) {
+  ]) {
     const actual = sha256(join(root, relativePath));
     if (actual !== expected) {
       throw new Error(`${relativePath} SHA-256 mismatch`);
@@ -106,7 +105,7 @@ export function verifySource(source, manifest = inputs) {
   ) {
     throw new Error("Desktop Electron Forge version mismatch");
   }
-  return { head, packageMetadata, root };
+  return { head, root };
 }
 
 export function verifyToolchain(manifest = inputs) {
