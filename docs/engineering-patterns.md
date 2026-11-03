@@ -15,3 +15,6 @@
 Use direct subprocess argument arrays and ordinary files. Do not add a generic
 packaging framework, plugin layer, registry, event bus, or duplicate application
 build owner.
+
+Apply the [comment and docstring review](../CODE_QUALITY.md#comment-and-docstring-review)
+to the final diff, including tests and scripts.
