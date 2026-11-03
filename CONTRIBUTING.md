@@ -1,5 +1,9 @@
 # Contributing
 
+All contributors and coding agents must follow the
+[comment and docstring review](CODE_QUALITY.md#comment-and-docstring-review)
+before requesting review.
+
 Changes must stay within Desktop release assembly. Application behavior belongs
 in `openminion/desktop`; standalone CLI packaging belongs in
 `openminion/openminion-packaging`.
