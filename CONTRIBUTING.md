@@ -1,8 +1,9 @@
 # Contributing
 
 All contributors and coding agents must follow the
-[comment and docstring review](CODE_QUALITY.md#comment-and-docstring-review)
-before requesting review.
+[code-quality rules](CODE_QUALITY.md), including minimum usable code,
+comment/docstring review and revision-bound cleanup evidence, before requesting
+review. Unresolved substantiated findings block approval and merge.
 
 Changes must stay within Desktop release assembly. Application behavior belongs
 in `openminion/desktop`; standalone CLI packaging belongs in
